@@ -7,35 +7,44 @@ plugins {
 	kotlin("plugin.spring") version "1.6.10"
 }
 
-group = "com.in28minutes.microservices"
-version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
+allprojects {
+
+	apply(plugin = "org.jetbrains.kotlin.jvm")
+	apply(plugin = "org.springframework.boot")
+	apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+	apply(plugin = "io.spring.dependency-management")
+
+	group = "com.in28minutes.microservices"
+	version = "0.0.1-SNAPSHOT"
+	java.sourceCompatibility = JavaVersion.VERSION_17
+
+	extra["springCloudVersion"] = "2021.0.1"
+
+	dependencyManagement {
+		imports {
+			mavenBom(
+				"org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}"
+			)
+		}
+	}
+
+}
+
+subprojects {
+
+	apply(plugin = "org.jetbrains.kotlin.jvm")
+	apply(plugin = "org.springframework.boot")
+	apply(plugin = "org.jetbrains.kotlin.plugin.spring")
+	apply(plugin = "io.spring.dependency-management")
+
+	repositories {
+        mavenCentral()
+    }
+
+}
 
 repositories {
 	mavenCentral()
-}
-
-extra["springCloudVersion"] = "2021.0.1"
-
-dependencies {
-
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	implementation("org.springframework.cloud:spring-cloud-starter-config")
-
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-
-}
-
-dependencyManagement {
-	imports {
-		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
-	}
 }
 
 tasks.withType<KotlinCompile> {

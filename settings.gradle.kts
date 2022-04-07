@@ -1,1 +1,3 @@
-rootProject.name = "limits-service"
+rootProject.name = "limits"
+
+include(":limits-service")
