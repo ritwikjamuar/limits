@@ -18,6 +18,10 @@ allprojects {
 	version = "0.0.1-SNAPSHOT"
 	java.sourceCompatibility = JavaVersion.VERSION_17
 
+}
+
+subprojects {
+
 	extra["springCloudVersion"] = "2021.0.1"
 
 	dependencyManagement {
@@ -27,15 +31,6 @@ allprojects {
 			)
 		}
 	}
-
-}
-
-subprojects {
-
-	apply(plugin = "org.jetbrains.kotlin.jvm")
-	apply(plugin = "org.springframework.boot")
-	apply(plugin = "org.jetbrains.kotlin.plugin.spring")
-	apply(plugin = "io.spring.dependency-management")
 
 	repositories {
         mavenCentral()
@@ -47,13 +42,17 @@ repositories {
 	mavenCentral()
 }
 
-tasks.withType<KotlinCompile> {
-	kotlinOptions {
-		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "17"
-	}
-}
+tasks {
 
-tasks.withType<Test> {
-	useJUnitPlatform()
+	withType<KotlinCompile> {
+		kotlinOptions {
+			freeCompilerArgs = listOf("-Xjsr305=strict")
+			jvmTarget = "17"
+		}
+	}
+
+	withType<Test> {
+		useJUnitPlatform()
+	}
+
 }
