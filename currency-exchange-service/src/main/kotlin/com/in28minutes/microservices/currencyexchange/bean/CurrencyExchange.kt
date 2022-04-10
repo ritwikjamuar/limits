@@ -3,6 +3,7 @@ package com.in28minutes.microservices.currencyexchange.bean
 import org.hibernate.Hibernate
 
 import java.math.BigDecimal
+import javax.persistence.Column
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -25,10 +26,13 @@ data class CurrencyExchange(
 	@field: GeneratedValue(strategy = GenerationType.IDENTITY)
 	val id: Long,
 
+	@field: Column(name = "currency_from")
 	val from: String,
 
+	@field: Column(name = "currency_to")
 	val to: String,
 
+	@field: Column(name = "conversion_multiple")
 	val conversionMultiple: BigDecimal,
 
 	val environment: String
