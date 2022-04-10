@@ -1,6 +1,13 @@
 package com.in28minutes.microservices.currencyexchange.bean
 
+import org.hibernate.Hibernate
+
 import java.math.BigDecimal
+
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
 
 /**
  * Data Representation of a Currency Exchange.
@@ -11,10 +18,33 @@ import java.math.BigDecimal
  * @param conversionMultiple [BigDecimal] denoting the conversion rate.
  * @param environment [String] denoting the environment.
  */
+@Entity
 data class CurrencyExchange(
+
+	@field: Id
+	@field: GeneratedValue(strategy = GenerationType.IDENTITY)
 	val id: Long,
+
 	val from: String,
+
 	val to: String,
+
 	val conversionMultiple: BigDecimal,
+
 	val environment: String
-)
+
+) {
+
+	override fun equals(other: Any?): Boolean {
+		if (this === other) return true
+		if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
+		other as CurrencyExchange
+		return id == other.id
+	}
+
+	override fun hashCode(): Int = javaClass.hashCode()
+
+	override fun toString(): String =
+		"${this::class.simpleName} (id=$id, from=$from, to=$to, conversionMultiple=$conversionMultiple, environment=$environment)"
+
+}
