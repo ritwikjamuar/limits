@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 
-import java.math.BigDecimal
-
 /**
  * [RestController] for receiving and responding all the HTTP Methods related to [CurrencyExchange].
  */
@@ -49,12 +47,7 @@ class CurrencyExchangeController {
 	fun retrieveExchangeValue(
 		@PathVariable from: String,
 		@PathVariable to: String
-	): CurrencyExchange = CurrencyExchange(
-		1000L,
-		from,
-		to,
-		BigDecimal.ZERO,
-		environment.getProperty("local.server.port") ?: "-1"
-	)
+	): CurrencyExchange =
+		service.findByFromAndTo(from, to).copy(environment = environment.getProperty("local.server.port") ?: "-1")
 
 }
