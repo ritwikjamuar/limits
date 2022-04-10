@@ -36,6 +36,6 @@ class LimitsController {
 			"/limits"
 		]
 	)
-	fun retrieveLimits(): Limits = Limits(configuration.minimum, configuration.maximum)
+	fun retrieveLimits(): Limits = Limits(configuration.minimumValue, configuration.maximumValue)
 
 }
