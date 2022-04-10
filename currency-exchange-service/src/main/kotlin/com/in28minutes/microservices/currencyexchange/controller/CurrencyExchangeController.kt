@@ -2,6 +2,8 @@ package com.in28minutes.microservices.currencyexchange.controller
 
 import com.in28minutes.microservices.currencyexchange.bean.CurrencyExchange
 
+import com.in28minutes.microservices.currencyexchange.service.CurrencyExchangeService
+
 import org.springframework.beans.factory.annotation.Autowired
 
 import org.springframework.core.env.Environment
@@ -26,6 +28,12 @@ class CurrencyExchangeController {
 	 */
 	@Autowired
 	private lateinit var environment: Environment
+
+	/**
+	 * Reference of [CurrencyExchangeService] to perform the CRUD operations around [CurrencyExchange].
+	 */
+	@Autowired
+	private lateinit var service: CurrencyExchangeService
 
 	/*------------------------------------------------ Public Methods ------------------------------------------------*/
 
