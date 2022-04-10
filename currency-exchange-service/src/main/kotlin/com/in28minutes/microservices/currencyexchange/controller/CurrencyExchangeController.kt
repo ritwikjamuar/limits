@@ -2,6 +2,10 @@ package com.in28minutes.microservices.currencyexchange.controller
 
 import com.in28minutes.microservices.currencyexchange.bean.CurrencyExchange
 
+import org.springframework.beans.factory.annotation.Autowired
+
+import org.springframework.core.env.Environment
+
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
@@ -14,6 +18,14 @@ import java.math.BigDecimal
 @Suppress("unused")
 @RestController
 class CurrencyExchangeController {
+
+	/*-------------------------------------------------- Components --------------------------------------------------*/
+
+	/**
+	 * Reference of [Environment] to fetch the system attributes of this microservice.
+	 */
+	@Autowired
+	private lateinit var environment: Environment
 
 	/*------------------------------------------------ Public Methods ------------------------------------------------*/
 
@@ -34,7 +46,7 @@ class CurrencyExchangeController {
 		from,
 		to,
 		BigDecimal.ZERO,
-		""
+		environment.getProperty("local.server.port") ?: "-1"
 	)
 
 }
